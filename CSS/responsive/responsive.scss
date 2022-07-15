@@ -1,0 +1,120 @@
+/**
+
+Responsive
+
+**/
+
+/**
+
+Var
+
+
+**/
+$bg-dark:#171717;
+$bg-gray:#5D5D5D;
+$bg-white:#ECECEC;
+$yellow : #FEF200;
+$yellow2 : #f9e921;
+$fontText : Raleway;
+
+@media screen and (max-width:800px) {
+
+    .navbar_menu {
+        justify-content: space-evenly;
+        gap:10px;
+    }
+
+    .profile {
+        background-image: none;
+    }
+
+    form {
+        margin: 0 auto;
+    }
+    .lineField {
+        flex-direction: column;
+        margin-bottom : 0;
+    }
+
+    .field-group {
+        margin :10px auto;
+        width:100% !important;
+        & input {
+            width:calc(100% - 16px);
+            
+        }
+    }
+}
+
+@media screen and (max-width:600px) {
+
+    .accueil_wrapper {
+        bottom:10%;
+
+
+        & p {
+            font-size: 30px;
+        }
+    }
+
+    form {
+        width:90%;
+    }
+    .navbar {
+        background:$bg-gray;
+    }
+
+    .icon_menu {
+        display: block;
+    }
+    .navbar_menu {
+        flex-direction: column;
+        position:absolute;
+        left:30%;
+        height:auto;
+        padding: 10px 0 10px 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        top:-110px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: -2px -2px 5px $bg-dark;
+    }
+
+    .with-menu .navbar_menu {
+        visibility: visible;
+        top:110px;
+    }
+    
+}
+
+@media screen and (max-width:430px) {
+    .logo {
+
+        gap : 3px;
+
+        & .logo-link {
+            & img {
+            height:50px;
+        }
+        }
+
+        & p {
+            font-size: 10px;
+        }
+        
+    }
+
+}
+
+@media screen and (max-width:400px) {
+
+.project-wrapper {
+    width:100% !important;
+    margin: 0;
+
+    & .project {
+        width:100%;
+    }
+}
+
+}
