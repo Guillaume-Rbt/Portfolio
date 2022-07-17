@@ -150,12 +150,13 @@ window.addEventListener("load" , function () {
 
 
 
-//ajax mail 
+/* //ajax mail 
 
 
 document.getElementById("form").addEventListener("submit", function(e){
   var data = new FormData (this);
   e.preventDefault();
+  alert("")
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (this.readyState==4 && this.status==200){
@@ -168,8 +169,9 @@ document.getElementById("form").addEventListener("submit", function(e){
         document.getElementById("valid").style.backgroundColor="transparent";
         document.getElementById("valid").style.border="none";
         document.getElementById("valid").style.color="#171717"
-        document.getElementById("valid").innerHTML=this.response;
+        document.getElementById("valid").innerHTML="";
         document.getElementById("valid").style.animationPlayState="running"; 
+        document.getElementById("form").submit()
       }
       
     }else if (this.readyState==4) {
@@ -180,4 +182,4 @@ document.getElementById("form").addEventListener("submit", function(e){
   xhr.open("POST", "src/mail.php",true);
   xhr.send(data);
   return false;
-})
+}) */

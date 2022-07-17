@@ -200,8 +200,62 @@
     <section class="contact">
         <h2 id="contact">Me contacter</h2>
         <p class="infoForm">Tous les champs doivent etre renseignés</p>
-        <form id="form">
+        <?php
+
+            use PHPMailer\PHPMailer\PHPMailer;
+            use PHPMailer\PHPMailer\SMTP;
+
+            require 'PHPMailer/src/PHPMailer.php';
+            require 'PHPMailer/src/SMTP.php';
+            $mail = new PHPMailer(false);
+            $mail->CharSet = 'UTF-8';
+
+            $secret = "6Ld8DfMfAAAAAD7HqCzRkAJ0CBNwZMvJncYBbYR1";
+            $response = $_POST['g-recaptcha-response'];
+            $remoteip = $_SERVER['REMOTE_ADDR'];
+            $api_url = "https://www.google.com/recaptcha/api/siteverify?secret="
+                . $secret
+                . "&response=" . $response
+                . "&remoteip=" . $remoteip;
+
+            $decode = json_decode(file_get_contents($api_url), true);
+
+            if (isset($_POST['name']) and isset($_POST['email'])) {
+                $mail->isSMTP(); // Paramétrer le Mailer pour utiliser SMTP 
+                $mail->Host = 'smtp.ionos.fr '; // Spécifier le serveur SMTP
+                $mail->SMTPAuth = true; // Activer authentication SMTP
+                $mail->Username = 'contact@guillaume-robert-webdev.fr'; // Votre adresse email d'envoi
+                $mail->Password = 'YB8CGJhKK5ZL9dz'; // Le mot de passe de cette adresse email
+                $mail->SMTPSecure = 'tls'; // Accepter SSL
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+                $mail->Port = 465;
+                $mail->setFrom('contact@guillaume-robert-webdev.fr', 'Guillaume Robert'); // Personnaliser l'envoyeur
+                $mail->addAddress($_POST['email'], $_POST['name']); // Ajouter le destinataire
+                $mail->addReplyTo('contact@guillaume-robert-webdev.fr', 'Guillaume Robert'); // L'adresse de réponse
+                $mail->addCC('contact@guillaume-robert-webdev.fr');
+                $mail->isHTML(true); // Paramétrer le format des emails en HTML ou non
+                $mail->Subject = '[contact@guillaume-robert-webdev.fr] Formulaire de contact';
+                $mail->Body = "Nous avons bien reçu votre demande. Nous allons reprendre contact avec vous très rapidement. A très bientôt ! <br/><br/><hr/><br/><strong>Nom : </strong>" . $_POST['name'] . "Prénom :" . $_POST["firstname"] . " Objet :  " . $_POST['object'] . " Email : " . $_POST['email'] . "Message : " . $_POST['mess'];
+                $mail->AltBody = "Nous avons bien reçu votre demande. Nous allons reprendre contact avec vous très rapidement. A très bientôt ! Nom : " . $_POST['name'] . "Prénom :" . $_POST["firstname"] . " Objet :  " . $_POST['object'] . " Email : " . $_POST['email'] . "Message : " . $_POST['mess'];
+
+                if (!$mail->send()) {
+                    echo '<p class="valid" id="valid"> Le message n\'a pas été evoyé</p>';
+                    echo 'Mailer Error: ' . $mail->ErrorInfo;
+                } else {
+                    echo '<p class="valid" id="valid"> Le message a été envoyé</p>';
+                }
+            } else {
+            }
+            ?>
+        <form id="form" action="index.php/#contact" method="post" enctype="multipart/form-data">
             <p class="valid" id="valid"></p>
+            
             <div class="lineField">
                 <div class="field-group"><label for="name">NOM</label>
                     <input type="text" id="name" name="name" class="field" placeholder="DUPONT" maxlength="50"
@@ -227,13 +281,15 @@
             </div>
             <label for="mess">Message</label>
             <textarea class="field mess" id="mess" name="mess" placeholder="Votre message..."></textarea>
-            <input type="submit" value="Envoyer" class="submit" />
+            <div class="g-recaptcha" data-sitekey="6Ld8DfMfAAAAAGR6XpzGhb056E1yOYiiXiTuGhN-"></div>
+            <div> <input type="submit" value="Envoyer" class="submit" /></div>
+          
         </form>
     </section>
     <footer>
 
         <div class="reseaux">
-            <h2>Me retrouver</h2>
+        
             <div>
 
            <a href="https://www.linkedin.com/in/guillaume-robert-258507158/" target="_blank"><span class="iconify" data-icon="akar-icons:linkedin-box-fill"></span></a> 
