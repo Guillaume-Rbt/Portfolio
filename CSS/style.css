@@ -422,6 +422,26 @@ textarea {
 
 /**
 
+Mentions Legales
+
+**/
+.mentions-legales {
+  margin: 110px auto 10px;
+  width: clamp(300px, 80%, 1200px);
+  padding: 10px;
+}
+.mentions-legales h1 {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.mentions-legales h2 {
+  font-size: 20px;
+  margin: 20px auto 20px;
+}
+
+/**
+
 Footer
 
 **/
